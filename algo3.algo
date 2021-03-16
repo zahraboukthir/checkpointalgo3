@@ -1,12 +1,12 @@
-PROCEDURE dot_product(VAR n,m:INTEGER ,VAR v1,v2:ARRAY_OF INTEGER, VAR dot_pr:INTEGER)
+PROCEDURE dot_product(n,m:INTEGER ,v1,v2:ARRAY_OF INTEGER, VAR dot_pr:INTEGER)
 VAR    
-    i:INTEGER:=0;
+    i:INTEGER;
 BEGIN
     dot_pr:=0;
     IF (n <> m) THEN
         Write("we cannot calculat dot product because vectors have different sizes");
     ELSE
-        FOR i FROM 0 TO v1.length STEP 1  DO
+        FOR i FROM 0 TO n-1 STEP 1  DO
             dot_pr:=dot_pr+(v1[i]*v2[i])
         END FOR
     END IF
@@ -15,27 +15,21 @@ END
 
 ALGORITHM Orthogonal
 VAR
-    v1:ARRAY_OF_INTEGER[100];
-    v2:ARRAY_OF_INTEGER[100];   
-    n:INTEGER;
-    m:INTEGER;
-    i:INTEGER:=0;
+    v:ARRAY_OF ARRAY;  
+    i:INTEGER;
+    dot_pr:INTEGER;
     
 BEGIN
-    read(n);
-    read(m);
-    FOR i FROM 0 TO n STEP 1  DO
-        read(v1[i]);
+   FOR i FROM 0 TO v.length-2 STEP 1  DO
+        FOR j FROM i+1 TO v.length-1 STEP 1  DO
+            dot_product(v[i].length-1,v[j].length-1,v[i],v[j],dot_pr);
+            IF (dot_pr = 0) THEN
+                Write(v[i],"and".v[i]."are orthogonal");
+            ELSE
+                Write(v[i],"and".v[i]."are not orthogonal");
+            END_IF
+        END_FOR
     END_FOR
-    FOR i FROM 0 TO m STEP 1  DO
-        read(v2[i]);
-    END_FOR
-    dot_product(n,m,v1,v2,dot_pr);
-    IF (dot_pr==0)THEN
-        write("this two vectors are orthogonal");
-    ELSE
-        write("this two vectors are not orthogonal.");
-    END_IF
 END
 
 
@@ -51,25 +45,23 @@ BEGIN
     END_IF
     RETURN dot_pr ;
 END
+
+
 ALGORITHM Orthogonal
 VAR
-    v1,v2 : ARRAY_OF INTEGER [100];
-    n,m:INTEGER;
-    dot_pr : INTEGER;
-    i : INTEGER:=0;
+    v:ARRAY_OF ARRAY;  
+    i:INTEGER;
+    dot_pr:INTEGER;
+    
 BEGIN
-    read(n);
-    read(m);
-    FOR i FROM 0 TO n STEP 1  DO
-        read(v1[i]);
+   FOR i FROM 0 TO v.length-2 STEP 1  DO
+        FOR j FROM i+1 TO v.length-1 STEP 1  DO
+            dot_pr:=dot_product(v[i],v[j]);
+            IF (dot_pr = 0) THEN
+                Write(v[i],"and".v[j]."are orthogonal");
+            ELSE
+                Write(v[i],"and".v[j]."are not orthogonal");
+            END_IF
+        END_FOR
     END_FOR
-    FOR i FROM 0 TO m STEP 1  DO
-        read(v2[i]);
-    END_FOR
-    dot_pr:=dot_product(v1,v2);
-    IF (dot_pr = 0) THEN
-        Write("V1 and V2 are orthogonal");
-    ELSE
-        Write("V1 and V2 are not orthogonal");
-    END_IF
 END
